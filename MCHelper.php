@@ -28,10 +28,15 @@ $wgExtensionCredits['parserhook'][] = array(
  
 // Specify the function that will initialize the parser function.
 $wgHooks['ParserFirstCallInit'][] = 'MCHelperSetupParserFunction';
+$wgHooks['LanguageGetMagic'][] = 'MCHelperSetupParserFunction_Magic';
  
 // Allow translation of the parser function name
 // $wgExtensionMessagesFiles['MCHelper'] = __DIR__ . '/MCHelper.i18n.php';
  
+function MCHelperSetupParserFunction_Magic(&$magicWords, $langCode) {
+   $magicWords['crafting'] = array( 0, 'crafting' );
+   return true;
+}
 // Tell MediaWiki that the parser function exists.
 function MCHelperSetupParserFunction( &$parser ) {
  
