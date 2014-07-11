@@ -50,10 +50,21 @@ function MCHelperSetupParserFunction( &$parser ) {
  
 // Render the output of the parser function.
 function MCHelperRenderParserFunction( $parser ) {
- 
-   // The input parameters are wikitext with templates expanded.
-   // The output should be wikitext too.
-   $output = "This is just a test.";
- 
-   return array( $output, 'noparse' => false );
+   $output = '<div style="position:relative;width: 256px;height: 132px">'
+      . '[[Image:Crafting_GUI.png|link=]]'
+
+   for ( $i = 1; $i < func_num_args(); $i++ ) {
+      $opt = func_get_arg( $i );
+
+      $pair = explode( '=', $opt, 2 );
+      if ( count( $pair ) == 2 ) {
+         $name = trim( $pair[0] );
+         $value = trim( $pair[1] );
+         $options = $options . '{{GUI/Slot|' . $name . '|size=' . $value
+           . 'bordered=1}}' . "\n";
+      }
+
+   }
+   $output = $output . '</div>'
+   return array( $output, 'noparse' => true, 'isHtml' => true );
 }
